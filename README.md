@@ -66,7 +66,7 @@ for all future requests.
 ### Example request
 
 ```
-curl -X post --data "username=bob" http://api.videogami.co/v6/user
+curl -X POST --data "username=bob" http://api.videogami.co/v6/user
 ```
 
 ### Example response
@@ -95,7 +95,7 @@ Get user. Returns a user object.
 ### Example request
 
 ```
-curl -X get --data "password=XXXXXXXX" http://api.videogami.co/v6/user/bob
+curl -X GET --data "password=XXXXXXXX" http://api.videogami.co/v6/user/bob
 ```
 
 ## `GET /v6/user/:username/streams`
@@ -113,7 +113,7 @@ to 10 per page.
 ### Example request
 
 ```
-curl -X get --data "password=XXXXXXXXXX&page=0" http://api.videogami.co/v6/user/bob/streams
+curl -X GET --data "password=XXXXXXXXXX&page=0" http://api.videogami.co/v6/user/bob/streams
 ```
 
 ### Example response
@@ -152,7 +152,7 @@ a password required for live streaming to this channel.
 ### Example request
 
 ```
-curl -X post --data "password=XXXXXXXXXX&streamname=bobchannel17" http://api.videogami.co/v6/user/bob/stream
+curl -X POST --data "password=XXXXXXXXXX&streamname=bobchannel17" http://api.videogami.co/v6/user/bob/stream
 ```
 
 ### Example response
@@ -181,7 +181,7 @@ Get stream. Returns a stream object.
 ### Example request
 
 ```
-curl -X get --data "password=XXXXXXXX" http://api.videogami.co/v6/user/bob/stream/bobchannel17
+curl -X GET --data "password=XXXXXXXX" http://api.videogami.co/v6/user/bob/stream/bobchannel17
 ```
 
 ## `GET /v6/user/:username/stream/:streamname/videos`
@@ -199,7 +199,7 @@ to 10 per page.
 ### Example request
 
 ```
-curl -X get --data "password=XXXXXXXXXX&page=0" http://api.videogami.co/v6/user/bob/stream/bobchannel17/videos
+curl -X GET --data "password=XXXXXXXXXX&page=0" http://api.videogami.co/v6/user/bob/stream/bobchannel17/videos
 ```
 
 ### Example response
@@ -256,7 +256,7 @@ analyse it.
 ### Example request
 
 ```
-curl -X post --data "password=XXXXXXXXXX&autoclip=true" --data-urlencode "src=http://example.com/asdf.mp4" http://api.videogami.co/v6/user/bob/stream/bobchannel17/video
+curl -X POST --data "password=XXXXXXXXXX&autoclip=true" --data-urlencode "src=http://example.com/asdf.mp4" http://api.videogami.co/v6/user/bob/stream/bobchannel17/video
 ```
 
 ### Example response
@@ -300,7 +300,58 @@ Get video. Returns a video object.
 ### Example request
 
 ```
-curl -X get --data "password=XXXXXXXX" http://api.videogami.co/v6/user/bob/stream/bobchannel17/video/581362047bbf246e19a2b2c9
+curl -X GET --data "password=XXXXXXXX" http://api.videogami.co/v6/user/bob/stream/bobchannel17/video/581362047bbf246e19a2b2c9
+```
+
+
+## `GET /v6/user/:username/stream/:streamname/video/:id/clip`
+
+Clip a video.
+
+### Parameters
+
+| Name          | Type          | Required | Description            |
+|---------------|---------------|----------|------------------------|
+| password      | String        | YES      | Password               |
+| start         | Integer       | YES      | Start time of the clip in seconds |
+| duration      | Integer       | NO       | Duration of the clip in seconds, defaults to 30, max 40. |
+| title         | String        | NO       | Title of the clip      |
+
+### Example request
+
+```
+curl -X GET --data "password=XXXXXXXXXX&start=256&duration=30" http://api.videogami.co/v6/user/bob/stream/bobchannel17/581362047bbf246e19a2b2c9/clip
+```
+
+### Example response
+
+```
+{
+  "clip": {
+    "_id": "58136dd77bbf246e19a2b44c",
+    "user": "bob",
+    "title": "Untitled clip",
+    "created": "2016-10-28T15:25:11.578Z",
+    "parent": {
+      "pID": "581362047bbf246e19a2b2c9",
+      "stream": "bobchannel17",
+      "start": 256,
+      "end": 286
+    },
+    "ready": true,
+    "formats": {
+      "flv": "https://www.vgtv.media/581362047bbf246e19a2b2c9.256.30.original.mp4",
+      "mp4": "https://www.vgtv.media/581362047bbf246e19a2b2c9.256.30.mp4",
+      "smp4": "https://www.vgtv.media/581362047bbf246e19a2b2c9.256.30.small.mp4"
+    },
+    "screenshots": {
+      "small": "https://www.vgtv.media/581362047bbf246e19a2b2c9.256.30.small.jpg",
+      "medium": "https://www.vgtv.media/581362047bbf246e19a2b2c9.256.30.medium.jpg",
+      "big": "https://www.vgtv.media/581362047bbf246e19a2b2c9.256.30.big.jpg"
+    },
+    "length": 30,
+  }
+}
 ```
 
 ## `GET /v6/user/:username/stream/:streamname/video/:id/clips`
@@ -318,7 +369,7 @@ to 10 per page.
 ### Example request
 
 ```
-curl -X get --data "password=XXXXXXXXXX&page=0" http://api.videogami.co/v6/user/bob/stream/bobchannel17
+curl -X GET --data "password=XXXXXXXXXX&page=0" http://api.videogami.co/v6/user/bob/stream/bobchannel17
 ```
 
 ### Example response
