@@ -199,7 +199,7 @@ to 10 per page.
 ### Example request
 
 ```
-curl -X get --data "password=XXXXXXXXXX&page=0" http://api.videogami.co/v6/user/bob/stream/bobchannel17
+curl -X get --data "password=XXXXXXXXXX&page=0" http://api.videogami.co/v6/user/bob/stream/bobchannel17/videos
 ```
 
 ### Example response
